@@ -6,6 +6,12 @@
 #
 # Note: This YAML file will only work with Home Assistant >= 2024.10
 
+defaults: 
+  - &max_charge_power 6000  # max battery charge power
+  - &max_discharge_power 6000  # max battery charge power
+  - &max_charge_discharge_power 6000  # max battery charge power
+  - &export_power_limit 5100  # max battery charge power
+
 modbus:
   - name: SungrowSHx
     type: tcp
@@ -2547,19 +2553,19 @@ input_number:
   set_sg_forced_charge_discharge_power:
     name: Forced charge discharge power (W)
     min: 0
-    max: 5000 # change this value according to the capability of your battery
+    max: *max_charge_discharge_power # references the definition at the top of the file
     step: 100
 
   set_sg_battery_max_charge_power:
     name: Max battery charge power (W)
     min: 100
-    max: 5000 # change this value according to the capability of your battery
+    max: *max_charge_power # references the definition at the top of the file
     step: 100
 
   set_sg_battery_max_discharge_power:
     name: Max battery discharge power (W)
     min: 100
-    max: 5000 # change this value according to the capability of your battery
+    max: *max_discharge_power # references the definition at the top of the file
     step: 100
 
   # This threshold is compared against the currently achievable charging power, not just against the currently available surplus.
@@ -2581,7 +2587,7 @@ input_number:
   set_sg_export_power_limit:
     name: Export power limit (W)
     min: 0
-    max: 10500 # TODO Note: max for SH10.RT. It would be nice to have this as a global variable /secret
+    max: *export_power_limit # references the definition at the top of the file # TODO Note: max for SH10.RT. It would be nice to have this as a global variable /secret
     step: 100
 
 input_select:
