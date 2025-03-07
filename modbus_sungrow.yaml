@@ -7,10 +7,10 @@
 # Note: This YAML file will only work with Home Assistant >= 2024.10
 
 defaults: 
-  - &max_charge_power 6000  # max battery charge power
-  - &max_discharge_power 6000  # max battery charge power
-  - &max_charge_discharge_power 6000  # max battery charge power
-  - &export_power_limit 5100  # max battery charge power
+  - &max_charge_power 5000  # max battery charge power
+  - &max_discharge_power 5000  # max battery charge power
+  - &max_charge_discharge_power 5000  # max battery charge power
+  - &export_power_limit 10500  # max battery charge power
 
 modbus:
   - name: SungrowSHx
