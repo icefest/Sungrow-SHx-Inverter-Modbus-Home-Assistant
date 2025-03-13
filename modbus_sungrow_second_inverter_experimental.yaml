@@ -6,13 +6,6 @@
 #
 # Note: This YAML file will only work with Home Assistant >= 2024.10
 
-# Change these default settings according to the hardware limits of your inverter, battery and grid connection. For easier upgrades, these have been moved to the start of the file. 
-defaults: 
-  - &max_charge_power 5000  #The max battery charge power of your inverter/batttery combo
-  - &max_discharge_power 5000  #The max battery discharge power of your inverter/batttery combo
-  - &max_charge_discharge_power 5000  #The max forced battery charge/discharge power of your inverter/batttery combo
-  - &export_power_limit 10500  #The export power limit of your inverter/grid connection
-
 modbus:
   - name: SungrowSHx 2
     type: tcp
@@ -2554,19 +2547,19 @@ input_number:
   set_sg_2_forced_charge_discharge_power:
     name: Forced charge discharge power (W)
     min: 0
-    max: *max_charge_discharge_power # references the definition at the top of the file
+    max: !secret max_charge_discharge_power # change this value according to the capability of your battery
     step: 100
 
   set_sg_2_battery_max_charge_power:
     name: Max battery charge power (W)
     min: 100
-    max: *max_charge_power # references the definition at the top of the file
+    max: !secret max_charge_power # change this value according to the capability of your battery
     step: 100
 
   set_sg_2_battery_max_discharge_power:
     name: Max battery discharge power (W)
     min: 100
-    max: *max_discharge_power # references the definition at the top of the file
+    max: !secret max_discharge_power # change this value according to the capability of your battery
     step: 100
 
   # This threshold is compared against the currently achievable charging power, not just against the currently available surplus.
@@ -2588,7 +2581,7 @@ input_number:
   set_sg_2_export_power_limit:
     name: Export power limit (W)
     min: 0
-    max: *export_power_limit # references the definition at the top of the file # TODO Note: max for SH10.RT. It would be nice to have this as a global variable /secret
+    max: !secret export_power_limit # TODO Note: max for SH10.RT. It would be nice to have this as a global variable /secret
     step: 100
 
 input_select:
